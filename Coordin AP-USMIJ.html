@@ -1,0 +1,917 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2022.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'PingFang SC'}
+    span.s1 {font: 12.0px Helvetica}
+    span.s2 {font: 12.0px 'Hiragino Sans'}
+    span.s3 {font: 12.0px 'Apple Color Emoji'}
+    span.s4 {font: 12.0px Menlo}
+    span.s5 {font: 12.0px 'PingFang SC'}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="es"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;Aproximación Diagnóstica Psiquiátrica&lt;/title&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">:root {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg: #0f1117;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--surface: #181c26;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--surface2: #1e2333;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--border: #2a2f42;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text: #e8eaf0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--muted: #6b7494;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--muted2: #8892b0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--accent: #7eb8f7;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>--tdah:<span class="Apple-converted-space">    </span>#60a5fa;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--tea: <span class="Apple-converted-space">    </span>#a78bfa;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--toc: <span class="Apple-converted-space">    </span>#fbbf24;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--tnd: <span class="Apple-converted-space">    </span>#f87171;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--fobias:<span class="Apple-converted-space">  </span>#34d399;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--dep: <span class="Apple-converted-space">    </span>#818cf8;</p>
+<p class="p1">}</p>
+<p class="p1">* { box-sizing: border-box; margin: 0; padding: 0; }</p>
+<p class="p1">html { scroll-behavior: smooth; }</p>
+<p class="p1">body {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: 'IBM Plex Sans', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--bg);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-height: 100vh;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── Layout ── */</p>
+<p class="p1">.layout {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>grid-template-columns: 1fr 320px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 0;</p>
+<p class="p1">}</p>
+<p class="p1">@media (max-width: 900px) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.layout { grid-template-columns: 1fr; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.sidebar { position: relative; top: 0; height: auto; }</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── Left panel ── */</p>
+<p class="p1">.main-panel {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 2.5rem 2rem 4rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-right: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overflow-y: auto;</p>
+<p class="p1">}</p>
+<p class="p1">.page-header { margin-bottom: 2.5rem; }</p>
+<p class="p1">.page-header h1 {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: 'Libre Baskerville', serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 1.55rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing: -0.01em;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.3;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1">}</p>
+<p class="p1">.page-header p {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.82rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted2);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 300;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.6;</p>
+<p class="p1">}</p>
+<p class="p1">.disclaimer {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.72rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: rgba(255,255,255,0.04);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.35rem 0.65rem;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── Section headers ── */</p>
+<p class="p1">.section-block { margin-bottom: 2rem; }</p>
+<p class="p1">.section-title {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing: 0.14em;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.4rem 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 0.75rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 0.5rem;</p>
+<p class="p1">}</p>
+<p class="p1">.section-title span { font-size: 0.85rem; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── Item ── */</p>
+<p class="p1">.item {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: flex-start;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 0.85rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.6rem 0.65rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: background 0.12s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position: relative;</p>
+<p class="p1">}</p>
+<p class="p1">.item:hover { background: rgba(255,255,255,0.04); }</p>
+<p class="p1">.item.checked { background: rgba(255,255,255,0.05); }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Custom checkbox */</p>
+<p class="p1">.cb {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 17px; height: 17px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: background 0.15s, border-color 0.15s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex; align-items: center; justify-content: center;</p>
+<p class="p1">}</p>
+<p class="p1">.item.checked .cb {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-color: var(--accent);</p>
+<p class="p1">}</p>
+<p class="p1">.cb-check { display: none; }</p>
+<p class="p1">.item.checked .cb-check { display: block; }</p>
+<p class="p1">.cb-check svg { width: 10px; height: 10px; stroke: #0f1117; stroke-width: 2.5; fill: none; }</p>
+<p class="p2"><br></p>
+<p class="p1">.item-content { flex: 1; }</p>
+<p class="p1">.item-label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.875rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>line-height: 1.45;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 300;</p>
+<p class="p1">}</p>
+<p class="p1">.item-label strong { font-weight: 500; color: #fff; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Tags showing which disorders this item contributes to */</p>
+<p class="p1">.item-tags {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 5px;</p>
+<p class="p1">}</p>
+<p class="p1">.tag {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.62rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing: 0.04em;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.15rem 0.45rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>opacity: 0.45;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: opacity 0.2s, transform 0.2s;</p>
+<p class="p1">}</p>
+<p class="p1">.item.checked .tag { opacity: 1; transform: scale(1.05); }</p>
+<p class="p1">.tag-tdah <span class="Apple-converted-space">  </span>{ background: rgba(96,165,250,0.15);<span class="Apple-converted-space">  </span>color: var(--tdah);<span class="Apple-converted-space">  </span>}</p>
+<p class="p1">.tag-tea<span class="Apple-converted-space">    </span>{ background: rgba(167,139,250,0.15); color: var(--tea); <span class="Apple-converted-space">  </span>}</p>
+<p class="p1">.tag-toc<span class="Apple-converted-space">    </span>{ background: rgba(251,191,36,0.15);<span class="Apple-converted-space">  </span>color: var(--toc); <span class="Apple-converted-space">  </span>}</p>
+<p class="p1">.tag-tnd<span class="Apple-converted-space">    </span>{ background: rgba(248,113,113,0.15); color: var(--tnd); <span class="Apple-converted-space">  </span>}</p>
+<p class="p1">.tag-fobias { background: rgba(52,211,153,0.15);<span class="Apple-converted-space">  </span>color: var(--fobias);}</p>
+<p class="p1">.tag-dep<span class="Apple-converted-space">    </span>{ background: rgba(129,140,248,0.15); color: var(--dep); <span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── Sidebar ── */</p>
+<p class="p1">.sidebar {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position: sticky;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 2.5rem 1.4rem 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 1rem;</p>
+<p class="p1">}</p>
+<p class="p1">.sidebar-title {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: 'Libre Baskerville', serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.9rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted2);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 0.5rem;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: var(--surface);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.9rem 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: border-color 0.3s, box-shadow 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overflow: hidden;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card::before {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>left: 0; top: 0; bottom: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 3px 0 0 3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: opacity 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>opacity: 0.3;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card.active { border-color: rgba(255,255,255,0.15); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }</p>
+<p class="p1">.dx-card.active::before { opacity: 1; }</p>
+<p class="p1">.dx-card[data-dx="tdah"]::before <span class="Apple-converted-space">  </span>{ background: var(--tdah); }</p>
+<p class="p1">.dx-card[data-dx="tea"]::before<span class="Apple-converted-space">    </span>{ background: var(--tea); }</p>
+<p class="p1">.dx-card[data-dx="toc"]::before<span class="Apple-converted-space">    </span>{ background: var(--toc); }</p>
+<p class="p1">.dx-card[data-dx="tnd"]::before<span class="Apple-converted-space">    </span>{ background: var(--tnd); }</p>
+<p class="p1">.dx-card[data-dx="fobias"]::before { background: var(--fobias); }</p>
+<p class="p1">.dx-card[data-dx="dep"]::before<span class="Apple-converted-space">    </span>{ background: var(--dep); }</p>
+<p class="p2"><br></p>
+<p class="p1">.dx-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.55rem; }</p>
+<p class="p1">.dx-name {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.78rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: #fff;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-score {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.72rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space: nowrap;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card.active .dx-score { color: var(--text); }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Progress bar */</p>
+<p class="p1">.bar-track {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: rgba(255,255,255,0.07);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom: 0.5rem;</p>
+<p class="p1">}</p>
+<p class="p1">.bar-fill {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 0%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card[data-dx="tdah"] .bar-fill <span class="Apple-converted-space">  </span>{ background: var(--tdah); }</p>
+<p class="p1">.dx-card[data-dx="tea"] .bar-fill<span class="Apple-converted-space">    </span>{ background: var(--tea); }</p>
+<p class="p1">.dx-card[data-dx="toc"] .bar-fill<span class="Apple-converted-space">    </span>{ background: var(--toc); }</p>
+<p class="p1">.dx-card[data-dx="tnd"] .bar-fill<span class="Apple-converted-space">    </span>{ background: var(--tnd); }</p>
+<p class="p1">.dx-card[data-dx="fobias"] .bar-fill { background: var(--fobias); }</p>
+<p class="p1">.dx-card[data-dx="dep"] .bar-fill<span class="Apple-converted-space">    </span>{ background: var(--dep); }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Mini criteria chips */</p>
+<p class="p1">.dx-criteria {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 3px;</p>
+<p class="p1">}</p>
+<p class="p1">.crit-row {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap: 0.4rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.68rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1">}</p>
+<p class="p1">.crit-dot {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width: 6px; height: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1.5px solid var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: background 0.2s, border-color 0.2s;</p>
+<p class="p1">}</p>
+<p class="p1">.crit-dot.met { border-color: currentColor; background: currentColor; }</p>
+<p class="p1">.crit-row.met { color: var(--muted2); }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Aproximación label */</p>
+<p class="p1">.dx-label {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: 0.55rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.68rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-style: italic;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: color 0.3s;</p>
+<p class="p1">}</p>
+<p class="p1">.dx-card.threshold .dx-label { color: #fbbf24; }</p>
+<p class="p1">.dx-card.full .dx-label { color: #4ade80; }</p>
+<p class="p2"><br></p>
+<p class="p1">/* Reset */</p>
+<p class="p1">.reset-btn {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top: auto;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding: 0.6rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border: 1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family: 'IBM Plex Sans', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size: 0.8rem;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transition: background 0.15s, color 0.15s;</p>
+<p class="p1">}</p>
+<p class="p1">.reset-btn:hover { background: var(--surface2); color: var(--text); }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="layout"&gt;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">&lt;!-- </span>════════════════<span class="s1"> MAIN PANEL </span>════════════════<span class="s1"> --&gt;</span></p>
+<p class="p1">&lt;div class="main-panel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="page-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Aproximación Diagnóstica Psiquiátrica&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Selecciona los síntomas, signos y criterios presentes. El panel derecho aproxima los diagnósticos en tiempo real.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="disclaimer"&gt;<span class="s2">⚠</span> Herramienta orientativa. No sustituye la evaluación clínica.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SÍNTOMAS ── --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;&lt;span&gt;<span class="s3">🔵</span>&lt;/span&gt; Síntomas referidos&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- INATENCIÓN --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.5rem;color:var(--muted)"&gt;Inatención / Desorganización&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Dificultad para &lt;strong&gt;prestar o mantener la atención&lt;/strong&gt; en tareas, juegos o conversaciones&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Parece &lt;strong&gt;no escuchar&lt;/strong&gt; cuando se le habla directamente; no sigue instrucciones&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Desorganización&lt;/strong&gt;: no termina tareas, pierde objetos, olvida actividades cotidianas&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Dificultad para &lt;strong&gt;concentrarse&lt;/strong&gt; o tomar decisiones (indecisión persistente)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Evita o le disgustan los &lt;strong&gt;esfuerzos mentales sostenidos&lt;/strong&gt;; se distrae con estímulos externos&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- HIPERACTIVIDAD --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Hiperactividad / Impulsividad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Se &lt;strong&gt;mueve constantemente&lt;/strong&gt;: juguetea, golpea, se levanta en situaciones inapropiadas, corretea&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Siempre "en marcha" como si tuviera un &lt;strong&gt;motor&lt;/strong&gt;; incapaz de estar tranquilo&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"tnd":0.5}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Impulsividad&lt;/strong&gt;: respuestas precipitadas, interrumpe, no respeta turnos, se entromete&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Habla excesiva&lt;/strong&gt; (logorrea)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- CONDUCTA OPOSICIONISTA --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Conducta oposicionista / Irritabilidad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Pierde la paciencia&lt;/strong&gt; con frecuencia; está resentido o es muy susceptible&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Discute&lt;/strong&gt; con adultos o figuras de autoridad habitualmente&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Desafía activamente o &lt;strong&gt;rechaza cumplir normas&lt;/strong&gt; y peticiones&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Molesta&lt;/strong&gt; a los demás intencionadamente; &lt;strong&gt;culpa a otros&lt;/strong&gt; por sus propios errores&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Actitud &lt;strong&gt;rencorosa o vengativa&lt;/strong&gt; (al menos 2 veces en los últimos 6 meses)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- COMUNICACIÓN Y RELACIÓN SOCIAL --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Comunicación y relación social&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Déficit en &lt;strong&gt;reciprocidad socioemocional&lt;/strong&gt;: no inicia ni responde a interacciones sociales&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Déficit en &lt;strong&gt;comunicación no verbal&lt;/strong&gt;: gestos reducidos, escaso contacto visual, expresión facial limitada&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Dificultad para &lt;strong&gt;ajustar el comportamiento&lt;/strong&gt; a distintos contextos sociales; dificultad para hacer amigos&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1,"tea":0.5}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Miedo intenso a la &lt;strong&gt;evaluación negativa&lt;/strong&gt; o al escrutinio; temor a actuar de forma humillante&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Social&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Rechazo a reuniones con iguales&lt;/strong&gt; (en niños: debe ocurrir con pares, no solo con adultos)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Social&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- PATRONES RESTRICTIVOS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Patrones restrictivos / Rituales / Obsesiones&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Movimientos, uso de objetos o habla &lt;strong&gt;estereotipados y repetitivos&lt;/strong&gt; (ecolalia, aleteo…)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Inflexibilidad&lt;/strong&gt; ante cambios; insistencia en monotonía y rutinas rígidas; malestar ante variaciones&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Intereses muy &lt;strong&gt;restringidos y fijos&lt;/strong&gt; de intensidad anormal&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Hiper o hiporreactividad sensorial&lt;/strong&gt;: respuestas exageradas o ausentes a sonidos, texturas, luz, dolor&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"toc":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Pensamientos, impulsos o imágenes &lt;strong&gt;recurrentes e intrusivos&lt;/strong&gt; no deseados (obsesiones: contaminación, duda, orden…)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"toc":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Intenta &lt;strong&gt;ignorar o neutralizar&lt;/strong&gt; esos pensamientos; realiza comportamientos repetitivos (lavado, comprobaciones, orden) para reducir la ansiedad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ÁNIMO / AFECTO --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Estado de ánimo / Afecto&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Estado de ánimo deprimido&lt;/strong&gt; la mayor parte del día&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Pérdida de &lt;strong&gt;interés o placer&lt;/strong&gt; en actividades antes disfrutadas (anhedonia)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Sentimientos de &lt;strong&gt;inutilidad, culpa excesiva&lt;/strong&gt; o desesperanza&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Pensamientos recurrentes de muerte&lt;/strong&gt; o ideas de autolesión&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- VEGETATIVOS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Síntomas vegetativos y somáticos&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Pérdida de &lt;strong&gt;energía o fatiga&lt;/strong&gt; constante sin causa médica aparente&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Alteración del &lt;strong&gt;apetito y/o peso&lt;/strong&gt; (pérdida o aumento &amp;gt;5% en un mes) o del sueño (insomnio/hipersomnia)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Quejas somáticas&lt;/strong&gt; recurrentes (dolor abdominal, cefalea) asociadas a situaciones sociales o escolares&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Escolar&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ESCOLAR / SOCIAL --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title" style="font-size:0.6rem;border-bottom:none;margin-bottom:0.3rem;margin-top:0.8rem;color:var(--muted)"&gt;Evitación escolar / Separación&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Rechazo persistente&lt;/strong&gt; a asistir al centro educativo (absentismo)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Escolar&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Angustia intensa ante la &lt;strong&gt;separación de figuras de apego&lt;/strong&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Escolar&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SIGNOS (EXAMEN MENTAL) ── --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;&lt;span&gt;<span class="s3">🔶</span>&lt;/span&gt; Signos en el examen mental&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Inquietud psicomotriz&lt;/strong&gt; evidente durante la entrevista; distractibilidad por estímulos irrelevantes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1,"tdah":0.5}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Actitud &lt;strong&gt;hostil o desafiante&lt;/strong&gt;; baja tolerancia a la frustración; tendencia a externalizar la culpa&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1,"dep":0.5}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Irritabilidad fácil&lt;/strong&gt; o labilidad emocional marcada&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Alteración en el &lt;strong&gt;uso pragmático del lenguaje&lt;/strong&gt;; afecto inapropiado al contexto; manierismos o rituales observables&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"toc":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Pensamiento con &lt;strong&gt;contenido obsesivo&lt;/strong&gt;; ansiedad marcada si se interrumpe el ritual; posibles lesiones cutáneas por limpieza&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Inhibición conductual&lt;/strong&gt;: evita la mirada, rubor facial, voz baja o mutismo selectivo en situaciones sociales&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Social&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Respuesta autonómica ante el estímulo fóbico: &lt;strong&gt;taquicardia, temblores o sudoración&lt;/strong&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobia Social/Escolar&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Facies triste&lt;/strong&gt;, contacto ocular pobre, desaliño; agitación o enlentecimiento motor observable&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Ideas recurrentes de &lt;strong&gt;muerte o autolesiones&lt;/strong&gt; en el contenido del pensamiento&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── CRITERIOS TEMPORALES ── --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;&lt;span&gt;<span class="s3">⏱</span>&lt;/span&gt; Criterios de temporalidad&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":2}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Síntomas presentes &lt;strong&gt;antes de los 12 años&lt;/strong&gt; de edad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"tnd":1,"fobias":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Patrón mantenido durante &lt;strong&gt;al menos 6 meses&lt;/strong&gt;, casi todos los días&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-fobias"&gt;Fobias&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Trastorno &lt;strong&gt;crónico desde la infancia&lt;/strong&gt; (primeras fases del desarrollo)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"dep":2}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Síntomas presentes &lt;strong&gt;al menos 2 semanas&lt;/strong&gt; continuas, casi todos los días la mayor parte del día&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"toc":2}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Obsesiones o compulsiones que consumen &lt;strong&gt;más de 1 hora al día&lt;/strong&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"tnd":1,"fobias":1,"toc":1,"dep":1,"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Los síntomas suponen un &lt;strong&gt;cambio respecto a la normalidad previa&lt;/strong&gt; del paciente&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-fobias"&gt;Fobias&lt;/span&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── PÉRDIDA DE FUNCIONALIDAD ── --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section-title"&gt;&lt;span&gt;<span class="s4">⚙</span>&lt;/span&gt; Pérdida de funcionalidad&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"dep":1,"toc":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Interferencia clara en el &lt;strong&gt;rendimiento académico o laboral&lt;/strong&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"fobias":1,"tea":1,"dep":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;&lt;strong&gt;Aislamiento social&lt;/strong&gt; o deterioro significativo en las relaciones con iguales&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-fobias"&gt;Fobias&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tnd":1,"tdah":0.5}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Malestar o conflicto &lt;strong&gt;en el entorno familiar o social inmediato&lt;/strong&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"fobias":1,"toc":1,"dep":1,"tnd":1,"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Deterioro &lt;strong&gt;clínicamente significativo&lt;/strong&gt; en al menos dos áreas del funcionamiento&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-fobias"&gt;Fobias&lt;/span&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="item" data-points='{"tdah":1,"tnd":1,"fobias":1,"toc":1,"dep":1,"tea":1}'&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="cb"&gt;&lt;div class="cb-check"&gt;&lt;svg viewBox="0 0 12 12"&gt;&lt;polyline points="2,6 5,9 10,3"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="item-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-label"&gt;Los síntomas aparecen en &lt;strong&gt;al menos dos contextos distintos&lt;/strong&gt; (casa, colegio, grupo de iguales…)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="item-tags"&gt;&lt;span class="tag tag-tdah"&gt;TDAH&lt;/span&gt;&lt;span class="tag tag-tnd"&gt;TND&lt;/span&gt;&lt;span class="tag tag-fobias"&gt;Fobias&lt;/span&gt;&lt;span class="tag tag-toc"&gt;TOC&lt;/span&gt;&lt;span class="tag tag-dep"&gt;Depresión&lt;/span&gt;&lt;span class="tag tag-tea"&gt;TEA&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;&lt;!-- /main-panel --&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">&lt;!-- </span>════════════════<span class="s1"> SIDEBAR </span>════════════════<span class="s1"> --&gt;</span></p>
+<p class="p1">&lt;div class="sidebar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sidebar-title"&gt;Aproximación diagnóstica&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TDAH --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="tdah"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;TDAH&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-tdah"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-tdah"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tdah-1"&gt;&lt;div class="crit-dot" style="color:var(--tdah)"&gt;&lt;/div&gt;6+ síntomas de inatención o hiperactividad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tdah-2"&gt;&lt;div class="crit-dot" style="color:var(--tdah)"&gt;&lt;/div&gt;Inicio antes de los 12 años&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tdah-3"&gt;&lt;div class="crit-dot" style="color:var(--tdah)"&gt;&lt;/div&gt;Presencia en ≥2 contextos · 6 meses&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-tdah"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TEA --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="tea"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;TEA&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-tea"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-tea"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tea-1"&gt;&lt;div class="crit-dot" style="color:var(--tea)"&gt;&lt;/div&gt;3 criterios de comunicación social&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tea-2"&gt;&lt;div class="crit-dot" style="color:var(--tea)"&gt;&lt;/div&gt;2+ patrones restrictivos/repetitivos&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tea-3"&gt;&lt;div class="crit-dot" style="color:var(--tea)"&gt;&lt;/div&gt;Inicio en fases tempranas del desarrollo&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-tea"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TOC --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="toc"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;TOC&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-toc"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-toc"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-toc-1"&gt;&lt;div class="crit-dot" style="color:var(--toc)"&gt;&lt;/div&gt;Obsesiones y/o compulsiones presentes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-toc-2"&gt;&lt;div class="crit-dot" style="color:var(--toc)"&gt;&lt;/div&gt;Más de 1 hora al día · con malestar&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-toc"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- TND --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="tnd"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;TND&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-tnd"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-tnd"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tnd-1"&gt;&lt;div class="crit-dot" style="color:var(--tnd)"&gt;&lt;/div&gt;4+ síntomas de oposicionismo&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-tnd-2"&gt;&lt;div class="crit-dot" style="color:var(--tnd)"&gt;&lt;/div&gt;Patrón ≥6 meses · casi todos los días&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-tnd"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- FOBIAS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="fobias"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;Fobia Social / Escolar&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-fobias"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-fobias"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-fobias-1"&gt;&lt;div class="crit-dot" style="color:var(--fobias)"&gt;&lt;/div&gt;Miedo/evitación situacional intensa&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-fobias-2"&gt;&lt;div class="crit-dot" style="color:var(--fobias)"&gt;&lt;/div&gt;Persistencia ≥6 meses&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-fobias"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- DEPRESIÓN --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dx-card" data-dx="dep"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-name"&gt;Trastorno Depresivo&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dx-score" id="sc-dep"&gt;0 pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar-track"&gt;&lt;div class="bar-fill" id="bar-dep"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-criteria"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-dep-1"&gt;&lt;div class="crit-dot" style="color:var(--dep)"&gt;&lt;/div&gt;5+ síntomas depresivos nucleares&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="crit-row" id="cr-dep-2"&gt;&lt;div class="crit-dot" style="color:var(--dep)"&gt;&lt;/div&gt;Duración ≥2 semanas continuas&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="dx-label" id="lbl-dep"&gt;Sin datos suficientes&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="reset-btn" onclick="resetAll()"&gt;<span class="s4">↺</span> Limpiar todo&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;&lt;!-- /layout --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// Max scores per disorder (approximate full picture)</p>
+<p class="p1">const MAX = { tdah: 14, tea: 9, toc: 6, tnd: 8, fobias: 8, dep: 11 };</p>
+<p class="p1">// Threshold for "compatible" label</p>
+<p class="p1">const THRESH = { tdah: 6, tea: 5, toc: 3, tnd: 4, fobias: 4, dep: 5 };</p>
+<p class="p1">// Threshold for "probable" label</p>
+<p class="p1">const HIGH <span class="Apple-converted-space">  </span>= { tdah: 10, tea: 7, toc: 5, tnd: 6, fobias: 6, dep: 8 };</p>
+<p class="p2"><br></p>
+<p class="p1">const scores = { tdah: 0, tea: 0, toc: 0, tnd: 0, fobias: 0, dep: 0 };</p>
+<p class="p2"><br></p>
+<p class="p1">function updateUI() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const keys = Object.keys(scores);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const maxScore = Math.max(...keys.map(k =&gt; scores[k]), 1);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>keys.forEach(k =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const s = scores[k];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const pct = Math.min(100, (s / MAX[k]) * 100);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(`bar-${k}`).style.width = pct + '%';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById(`sc-${k}`).textContent = s.toFixed(1) + ' pts';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const card = document.querySelector(`.dx-card[data-dx="${k}"]`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const lbl<span class="Apple-converted-space">  </span>= document.getElementById(`lbl-${k}`);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>card.classList.remove('active','threshold','full');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (s === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lbl.textContent = 'Sin datos suficientes';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (s &lt; THRESH[k]) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lbl.textContent = 'Datos insuficientes para aproximar';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (s &lt; HIGH[k]) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lbl.textContent = '<span class="s4">⚑</span> Compatible — evaluar criterios completos';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.classList.add('active','threshold');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lbl.textContent = '<span class="s5">▲</span> Alta concordancia clínica';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.classList.add('active','full');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Sort cards by score descending</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const sidebar = document.querySelector('.sidebar');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cards = [...document.querySelectorAll('.dx-card')];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cards.sort((a,b) =&gt; scores[b.dataset.dx] - scores[a.dataset.dx]);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const title = sidebar.querySelector('.sidebar-title');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const btn <span class="Apple-converted-space">  </span>= sidebar.querySelector('.reset-btn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cards.forEach(c =&gt; sidebar.insertBefore(c, btn));</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">// Item click handling</p>
+<p class="p1">document.querySelectorAll('.item').forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>item.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const wasChecked = item.classList.contains('checked');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>item.classList.toggle('checked');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const pts = JSON.parse(item.dataset.points);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>Object.entries(pts).forEach(([k, v]) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>scores[k] = Math.max(0, scores[k] + (wasChecked ? -v : v));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateUI();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">function resetAll() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.item.checked').forEach(i =&gt; i.classList.remove('checked'));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>Object.keys(scores).forEach(k =&gt; scores[k] = 0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>updateUI();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">updateUI();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
