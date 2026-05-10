@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coordinación AP · USMIJ Sector III Zaragoza</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:    #1a6b6b;
+    --teal-lt: #2a9090;
+    --cream:   #f7f4ef;
+    --warm:    #e8e0d5;
+    --text:    #1c2a2a;
+    --muted:   #5a7070;
+    --accent:  #c0392b;
+    --amber:   #b45309;
+    --blue:    #2563ab;
+    --card-bg: #ffffff;
+    --shadow:  0 4px 24px rgba(26,107,107,.13);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  /* ════ LOGIN OVERLAY ════ */
+  #login-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(145deg, #0f3535 0%, #1a6b6b 60%, #0d2626 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 2000; padding: 2rem;
+  }
+  #login-screen .logo {
+    font-family: 'Playfair Display', serif;
+    color: #fff; text-align: center; margin-bottom: 2.5rem;
+  }
+  #login-screen .logo h1 { font-size: clamp(1.3rem,4vw,1.9rem); line-height: 1.3; }
+  #login-screen .logo p  { font-size: .78rem; margin-top: .5rem; opacity: .65; letter-spacing: .1em; text-transform: uppercase; }
+  #login-screen .logo .divider { width: 40px; height: 2px; background: rgba(255,255,255,.3); margin: .9rem auto 0; border-radius: 2px; }
+
+  .login-card {
+    background: #fff; border-radius: 18px;
+    padding: 2.4rem 2.2rem; width: min(380px,92vw);
+    box-shadow: 0 30px 80px rgba(0,0,0,.4);
+    text-align: center;
+  }
+  .login-card .lc-icon { font-size: 2rem; margin-bottom: .8rem; }
+  .login-card h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--teal); margin-bottom: .3rem; }
+  .login-card p.sub { font-size: .78rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+
+  .login-card input[type="password"] {
+    width: 100%; padding: .75rem 1rem;
+    border: 2px solid var(--warm); border-radius: 9px;
+    font-size: 1rem; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color .2s;
+    background: var(--cream); color: var(--text);
+    text-align: center; letter-spacing: .18em;
+  }
+  .login-card input[type="password"]:focus { border-color: var(--teal); }
+  .login-card .btn-enter {
+    margin-top: .9rem; width: 100%; padding: .82rem;
+    background: var(--teal); color: #fff; border: none;
+    border-radius: 9px; font-family: 'DM Sans', sans-serif;
+    font-size: .95rem; font-weight: 500; cursor: pointer;
+    transition: background .2s, transform .1s;
+  }
+  .login-card .btn-enter:hover  { background: var(--teal-lt); }
+  .login-card .btn-enter:active { transform: scale(.98); }
+  .login-err { color: var(--accent); font-size: .8rem; margin-top: .6rem; min-height: 1rem; }
+
+  .login-hint {
+    margin-top: 1.4rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--warm);
+    font-size: .73rem; color: var(--muted); line-height: 1.7;
+  }
+  .login-hint strong { color: var(--text); }
+
+  /* ════ MODAL (admin re-auth / confirm) ════ */
+  .modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(28,42,42,.75); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; z-index: 1000;
+  }
+  .modal-bg.open { display: flex; animation: fadein .25s ease; }
+  @keyframes fadein { from{opacity:0}to{opacity:1} }
+  .modal-box {
+    background: #fff; border-radius: 15px;
+    padding: 2rem 1.9rem; width: min(340px,92vw);
+    box-shadow: 0 20px 60px rgba(0,0,0,.3); text-align: center;
+  }
+  .modal-box .m-icon { font-size: 1.9rem; margin-bottom: .7rem; }
+  .modal-box h2 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--teal); margin-bottom: .25rem; }
+  .modal-box p.sub { font-size: .78rem; color: var(--muted); margin-bottom: 1.3rem; }
+  .modal-box input[type="password"] {
+    width: 100%; padding: .68rem .9rem;
+    border: 2px solid var(--warm); border-radius: 8px;
+    font-size: .95rem; font-family: 'DM Sans', sans-serif;
+    outline: none; background: var(--cream); color: var(--text);
+    text-align: center; letter-spacing: .15em; transition: border-color .2s;
+  }
+  .modal-box input[type="password"]:focus { border-color: var(--teal); }
+  .modal-row { display: flex; gap: .55rem; margin-top: .8rem; }
+  .modal-row button { flex:1; padding: .7rem; border: none; border-radius: 8px; font-family:'DM Sans',sans-serif; font-size:.88rem; font-weight:500; cursor:pointer; transition:background .2s; }
+  .btn-confirm { background: var(--teal); color: #fff; }
+  .btn-confirm:hover { background: var(--teal-lt); }
+  .btn-cancel  { background: var(--cream); color: var(--muted); border: 1px solid var(--warm) !important; }
+  .btn-cancel:hover { background: var(--warm); }
+  .modal-err { color: var(--accent); font-size: .77rem; margin-top: .5rem; min-height: .9rem; }
+
+  /* ════ MODE BAR ════ */
+  #mode-bar {
+    display: flex; align-items: center; gap: .65rem;
+    padding: .55rem 1.4rem; background: #fff;
+    border-bottom: 1px solid var(--warm); font-size: .78rem;
+    flex-wrap: wrap;
+  }
+  #mode-label { margin-right: auto; color: var(--muted); }
+  #mode-label strong { color: var(--teal); }
+  #mode-label.lv-fam   strong { color: var(--amber); }
+  #mode-label.lv-admin strong { color: var(--accent); }
+
+  .pill {
+    padding: .3rem .75rem; border-radius: 20px; font-size: .74rem;
+    font-family: 'DM Sans',sans-serif; font-weight: 500;
+    cursor: pointer; border: none; transition: background .18s, color .18s;
+  }
+  #pill-upgrade { background: #e8f4f4; color: var(--teal); }
+  #pill-upgrade:hover { background: #d0ecec; }
+  #pill-upgrade.active { background: #fde8e8; color: var(--accent); }
+  #pill-logout { background: var(--cream); color: var(--muted); border: 1px solid var(--warm) !important; }
+  #pill-logout:hover { background: var(--warm); }
+
+  /* ════ HEADER ════ */
+  header {
+    background: var(--teal); color: #fff;
+    padding: 1.9rem 2rem 1.5rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content:''; position:absolute; inset:0;
+    background: repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 14px);
+  }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.25rem,3vw,1.8rem); letter-spacing:.02em; position:relative; line-height:1.3; }
+  header p  { font-size:.8rem; margin-top:.4rem; opacity:.7; letter-spacing:.07em; text-transform:uppercase; position:relative; }
+  .hd { width:42px; height:3px; background:rgba(255,255,255,.3); margin:.8rem auto 0; border-radius:2px; position:relative; }
+
+  /* ════ MAIN ════ */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.4rem 4rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(265px,1fr)); gap:1.4rem; }
+
+  /* ════ CARD ════ */
+  .card { background:var(--card-bg); border-radius:13px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:box-shadow .25s,transform .25s; position:relative; }
+  .card:hover { box-shadow:0 8px 32px rgba(26,107,107,.2); transform:translateY(-2px); }
+  .card-hd { padding:1.1rem 1.25rem .85rem; display:flex; align-items:center; gap:.75rem; border-bottom:2px solid var(--cream); }
+  .c-icon { width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
+  .c-title { font-family:'Playfair Display',serif; font-size:.97rem; line-height:1.25; color:var(--text); }
+  .c-badge { font-size:.63rem; font-weight:500; letter-spacing:.07em; text-transform:uppercase; padding:.13rem .42rem; border-radius:20px; margin-left:auto; flex-shrink:0; }
+
+  .sec-diag  .c-icon { background:#e6f4f4; color:var(--teal); }
+  .sec-psico .c-icon { background:#edf3fa; color:var(--blue); }
+  .sec-fam   .c-icon { background:#fdf2e3; color:var(--amber); }
+  .sec-buzon .c-icon { background:#fde8e8; color:var(--accent); }
+  .sec-diag  .card-hd { border-color:#d0ecec; }
+  .sec-psico .card-hd { border-color:#dce8f5; }
+  .sec-fam   .card-hd { border-color:#fde8c4; }
+  .sec-buzon .card-hd { border-color:#fbdada; }
+  .sec-fam   .c-badge { background:#fff3e0; color:var(--amber); }
+
+  /* locked overlay for familias */
+  .fam-locked-msg { padding:1.6rem .8rem; text-align:center; color:var(--muted); font-size:.82rem; }
+
+  /* ════ FILE LIST ════ */
+  .file-list { padding:.45rem .65rem 0; flex:1; max-height:230px; overflow-y:auto; }
+  .file-item { display:flex; align-items:center; gap:.5rem; padding:.48rem .5rem; border-radius:7px; transition:background .15s; }
+  .file-item:hover { background:var(--cream); }
+  .f-icon { font-size:.95rem; flex-shrink:0; }
+  .f-name { font-size:.8rem; color:var(--text); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .f-date { font-size:.67rem; color:var(--muted); flex-shrink:0; }
+  .f-del  { background:none; border:none; color:#ccc; cursor:pointer; font-size:.82rem; padding:0 .12rem; transition:color .15s; }
+  .f-del:hover { color:var(--accent); }
+  .empty { padding:1.2rem .6rem; text-align:center; color:var(--muted); font-size:.79rem; }
+
+  /* ════ UPLOAD ════ */
+  .upload-wrap { margin:.65rem .65rem .85rem; }
+  .upload-area {
+    border:2px dashed var(--warm); border-radius:9px;
+    padding:.85rem; text-align:center;
+    transition:border-color .2s,background .2s;
+    cursor:pointer; position:relative;
+  }
+  .upload-area:hover,.upload-area.drag-over { border-color:var(--teal-lt); background:#f0f9f9; }
+  .upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .upload-area p { font-size:.74rem; color:var(--muted); pointer-events:none; }
+  .upload-area span { font-size:1.05rem; display:block; margin-bottom:.18rem; pointer-events:none; }
+
+  /* ════ BUZÓN ════ */
+  .buzon-form { padding:.5rem .65rem .8rem; }
+  .buzon-form textarea {
+    width:100%; height:82px;
+    border:2px solid var(--warm); border-radius:8px;
+    padding:.58rem .68rem; font-family:'DM Sans',sans-serif;
+    font-size:.8rem; resize:vertical; outline:none;
+    color:var(--text); background:var(--cream); transition:border-color .2s;
+  }
+  .buzon-form textarea:focus { border-color:var(--accent); }
+  .buzon-form .btn-send { margin-top:.45rem; width:100%; padding:.58rem; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.84rem; cursor:pointer; transition:background .2s; }
+  .buzon-form .btn-send:hover { background:#a93226; }
+  .buzon-msgs { padding:.05rem .65rem .65rem; }
+  .bz-item { background:#fff5f5; border-left:3px solid var(--accent); border-radius:6px; padding:.48rem .62rem; margin-bottom:.42rem; font-size:.79rem; color:var(--text); }
+  .bz-hd { display:flex; justify-content:space-between; align-items:flex-start; gap:.35rem; }
+  .bz-date { font-size:.67rem; color:var(--muted); margin-top:.18rem; }
+  .bz-del { background:none; border:none; color:#ccc; cursor:pointer; font-size:.82rem; flex-shrink:0; transition:color .15s; }
+  .bz-del:hover { color:var(--accent); }
+
+  /* ════ FOOTER ════ */
+  footer { text-align:center; padding:1.3rem; font-size:.7rem; color:var(--muted); border-top:1px solid var(--warm); }
+
+  /* ════ TOAST ════ */
+  #toast { position:fixed; bottom:1.4rem; left:50%; transform:translateX(-50%); background:#1c2a2a; color:#fff; padding:.55rem 1.2rem; border-radius:30px; font-size:.78rem; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9999; white-space:nowrap; }
+  #toast.show { opacity:1; }
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN SCREEN ════ -->
+<div id="login-screen">
+  <div class="logo">
+    <h1>Coordinación AP · USMIJ<br>Sector III – Zaragoza</h1>
+    <p>Área de Salud Mental Infanto-Juvenil</p>
+    <div class="divider"></div>
+  </div>
+  <div class="login-card">
+    <div class="lc-icon">🔐</div>
+    <h2>Acceso al portal</h2>
+    <p class="sub">Introduce tu contraseña para continuar.<br>El nivel de acceso se asigna automáticamente.</p>
+    <input type="password" id="lp-input" placeholder="Contraseña" autocomplete="off" />
+    <div class="login-err" id="lp-err"></div>
+    <button class="btn-enter" onclick="doLogin()">Entrar</button>
+    <div class="login-hint">
+      <strong>Niveles de acceso:</strong><br>
+      Lectura general · Lectura + Familias · Administración
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL ════ -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <div class="m-icon" id="m-icon">🔒</div>
+    <h2 id="m-title"></h2>
+    <p class="sub" id="m-sub"></p>
+    <input type="password" id="m-pass" autocomplete="off" placeholder="Contraseña" />
+    <div class="modal-err" id="m-err"></div>
+    <div class="modal-row">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="submitModal()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ TOAST ════ -->
+<div id="toast"></div>
+
+<!-- ════ HEADER ════ -->
+<header>
+  <h1>Coordinación AP · USMIJ<br>Sector III – Zaragoza</h1>
+  <p>Área de Salud Mental Infanto-Juvenil</p>
+  <div class="hd"></div>
+</header>
+
+<!-- ════ MODE BAR ════ -->
+<div id="mode-bar">
+  <span id="mode-label">Modo: <strong>—</strong></span>
+  <button class="pill" id="pill-upgrade" onclick="askUpgrade()">⬆ Subir nivel</button>
+  <button class="pill" id="pill-logout"  onclick="doLogout()">Cerrar sesión</button>
+</div>
+
+<!-- ════ MAIN ════ -->
+<main>
+  <div class="grid">
+
+    <!-- ① DIAGNÓSTICO Y TRATAMIENTO -->
+    <div class="card sec-diag">
+      <div class="card-hd">
+        <div class="c-icon">🩺</div>
+        <div class="c-title">Diagnóstico y<br>Tratamiento</div>
+      </div>
+      <div class="file-list" id="list-diag"></div>
+      <div class="upload-wrap" id="uw-diag" style="display:none">
+        <div class="upload-area" ondragover="dov(event,'diag')" ondragleave="dol('diag')" ondrop="dop(event,'diag')">
+          <input type="file" multiple onchange="addFiles(this.files,'diag')">
+          <span>📎</span><p>Arrastra o haz clic para adjuntar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② PSICOEDUCACIÓN -->
+    <div class="card sec-psico">
+      <div class="card-hd">
+        <div class="c-icon">📖</div>
+        <div class="c-title">Psicoeducación</div>
+      </div>
+      <div class="file-list" id="list-psico"></div>
+      <div class="upload-wrap" id="uw-psico" style="display:none">
+        <div class="upload-area" ondragover="dov(event,'psico')" ondragleave="dol('psico')" ondrop="dop(event,'psico')">
+          <input type="file" multiple onchange="addFiles(this.files,'psico')">
+          <span>📎</span><p>Arrastra o haz clic para adjuntar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ FAMILIAS -->
+    <div class="card sec-fam">
+      <div class="card-hd">
+        <div class="c-icon">👨‍👩‍👧</div>
+        <div class="c-title">Familias</div>
+        <span class="c-badge">🔑 acceso especial</span>
+      </div>
+      <div id="fam-body">
+        <div class="fam-locked-msg" id="fam-locked">🔒 Acceso restringido a esta sección</div>
+      </div>
+      <div class="file-list" id="list-fam" style="display:none"></div>
+      <div class="upload-wrap" id="uw-fam" style="display:none">
+        <div class="upload-area" ondragover="dov(event,'fam')" ondragleave="dol('fam')" ondrop="dop(event,'fam')">
+          <input type="file" multiple onchange="addFiles(this.files,'fam')">
+          <span>📎</span><p>Arrastra o haz clic para adjuntar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ BUZÓN -->
+    <div class="card sec-buzon">
+      <div class="card-hd">
+        <div class="c-icon">💬</div>
+        <div class="c-title">Buzón de<br>Sugerencias</div>
+      </div>
+      <div class="buzon-form">
+        <textarea id="bz-text" placeholder="Escribe aquí tu sugerencia o comentario…"></textarea>
+        <button class="btn-send" onclick="sendBuzon()">Enviar sugerencia</button>
+      </div>
+      <div class="buzon-msgs" id="bz-list"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  Plataforma interna · AP · USMIJ Sector III Zaragoza &nbsp;·&nbsp; Uso exclusivo profesional
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+//  CONTRASEÑAS — cámbialas aquí
+// ══════════════════════════════════════════════
+const PASS = {
+  read:  "lectura2025",   // solo lectura (sin familias)
+  fam:   "familias24",    // lectura + sección familias
+  admin: "usmij_admin"    // acceso total, puede editar todo
+};
+
+// ══════════════════════════════════════════════
+//  NIVELES: 0=sin sesión  1=lectura  2=lectura+fam  3=admin
+// ══════════════════════════════════════════════
+let level = 0;
+const store = { diag:[], psico:[], fam:[], buzon:[] };
+
+// ── LOGIN ──
+function doLogin() {
+  const v = document.getElementById('lp-input').value;
+  let lv = 0;
+  if      (v === PASS.admin) lv = 3;
+  else if (v === PASS.fam)   lv = 2;
+  else if (v === PASS.read)  lv = 1;
+
+  if (lv === 0) {
+    const e = document.getElementById('lp-err');
+    e.textContent = 'Contraseña incorrecta';
+    setTimeout(()=> e.textContent='', 2600);
+    return;
+  }
+  level = lv;
+  document.getElementById('login-screen').style.display = 'none';
+  applyLevel();
+  renderAll();
+  toast(levelLabel() + ' — bienvenido/a ✓');
+}
+document.getElementById('lp-input').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+// ── LOGOUT ──
+function doLogout() {
+  level = 0;
+  document.getElementById('lp-input').value = '';
+  document.getElementById('lp-err').textContent = '';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+// ── SUBIR NIVEL ──
+function askUpgrade() {
+  if (level === 3) { toast('Ya estás en el nivel máximo'); return; }
+  openModal('⬆️','Subir nivel de acceso','Introduce la contraseña del nivel superior', pass => {
+    let newLv = 0;
+    if      (pass === PASS.admin && level < 3) newLv = 3;
+    else if (pass === PASS.fam   && level < 2) newLv = 2;
+    else if (pass === PASS.read  && level < 1) newLv = 1;
+    if (newLv > level) {
+      level = newLv; closeModal(); applyLevel(); renderAll();
+      toast(levelLabel() + ' desbloqueado ✓');
+    } else {
+      mErr('Contraseña incorrecta o nivel insuficiente');
+    }
+  });
+}
+
+// ── APLICAR NIVEL ──
+function applyLevel() {
+  const lbl = document.getElementById('mode-label');
+  const pill = document.getElementById('pill-upgrade');
+
+  // label
+  const labels = ['—','Solo lectura','Lectura + Familias','Administración'];
+  const cls    = ['','','lv-fam','lv-admin'];
+  lbl.innerHTML = 'Acceso: <strong>' + labels[level] + '</strong>';
+  lbl.className = cls[level];
+
+  // upgrade button
+  pill.style.display = level >= 3 ? 'none' : 'inline-block';
+
+  // familias section visibility
+  const famLocked = document.getElementById('fam-locked');
+  const famList   = document.getElementById('list-fam');
+  const famUW     = document.getElementById('uw-fam');
+  if (level >= 2) {
+    famLocked.style.display = 'none';
+    famList.style.display   = 'block';
+    famUW.style.display     = level === 3 ? 'block' : 'none';
+  } else {
+    famLocked.style.display = 'block';
+    famList.style.display   = 'none';
+    famUW.style.display     = 'none';
+  }
+
+  // upload areas (non-fam): only admin
+  ['diag','psico'].forEach(s => {
+    document.getElementById('uw-'+s).style.display = level === 3 ? 'block' : 'none';
+  });
+}
+
+function levelLabel() {
+  return ['—','Solo lectura','Lectura + Familias','Administración'][level];
+}
+
+// ══════════════════════════════════════════════
+//  MODAL
+// ══════════════════════════════════════════════
+let pendingCb = null;
+function openModal(icon, title, sub, cb) {
+  document.getElementById('m-icon').textContent  = icon;
+  document.getElementById('m-title').textContent = title;
+  document.getElementById('m-sub').textContent   = sub;
+  document.getElementById('m-pass').value = '';
+  document.getElementById('m-err').textContent = '';
+  pendingCb = cb;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(()=> document.getElementById('m-pass').focus(), 100);
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); pendingCb=null; }
+function submitModal() { if(pendingCb) pendingCb(document.getElementById('m-pass').value); }
+function mErr(msg) {
+  document.getElementById('m-err').textContent = msg;
+  setTimeout(()=> document.getElementById('m-err').textContent='', 2500);
+}
+document.getElementById('m-pass').addEventListener('keydown', e => {
+  if(e.key==='Enter')  submitModal();
+  if(e.key==='Escape') closeModal();
+});
+document.getElementById('modal').addEventListener('click', e => {
+  if(e.target===document.getElementById('modal')) closeModal();
+});
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function renderAll() { ['diag','psico','fam'].forEach(renderList); renderBuzon(); }
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  const m = {pdf:'📄',doc:'📝',docx:'📝',xls:'📊',xlsx:'📊',ppt:'📋',pptx:'📋',
+              jpg:'🖼️',jpeg:'🖼️',png:'🖼️',gif:'🖼️',mp4:'🎬',mp3:'🎵',zip:'🗜️',rar:'🗜️'};
+  return m[ext]||'📁';
+}
+
+function renderList(sec) {
+  const el = document.getElementById('list-'+sec);
+  if (sec==='fam' && level<2) return; // oculto por CSS
+  const files = store[sec];
+  if (!files.length) { el.innerHTML='<div class="empty">Sin archivos todavía</div>'; return; }
+  el.innerHTML = files.map((f,i)=>`
+    <div class="file-item">
+      <span class="f-icon">${fileIcon(f.name)}</span>
+      <span class="f-name" title="${f.name}">${f.name}</span>
+      <span class="f-date">${f.date}</span>
+      ${level===3?`<button class="f-del" onclick="delFile('${sec}',${i})" title="Eliminar">✕</button>`:''}
+    </div>`).join('');
+}
+
+function delFile(sec,i) {
+  if(level<3) return;
+  store[sec].splice(i,1); renderList(sec);
+}
+
+// ══════════════════════════════════════════════
+//  ARCHIVOS
+// ══════════════════════════════════════════════
+function addFiles(files,sec) {
+  if(level<3) return;
+  if(sec==='fam'&&level<3) return;
+  const today = new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'});
+  Array.from(files).forEach(f=>store[sec].push({name:f.name,date:today}));
+  renderList(sec);
+}
+function dov(e,s){ e.preventDefault(); if(level===3) document.querySelector('#uw-'+s+' .upload-area').classList.add('drag-over'); }
+function dol(s)  { document.querySelector('#uw-'+s+' .upload-area').classList.remove('drag-over'); }
+function dop(e,s){ e.preventDefault(); dol(s); if(level===3) addFiles(e.dataTransfer.files,s); }
+
+// ══════════════════════════════════════════════
+//  BUZÓN — siempre se puede escribir
+// ══════════════════════════════════════════════
+function sendBuzon() {
+  const ta = document.getElementById('bz-text');
+  const msg = ta.value.trim(); if(!msg) return;
+  const now = new Date().toLocaleString('es-ES',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  store.buzon.unshift({text:msg,date:now});
+  ta.value=''; renderBuzon();
+  toast('Sugerencia enviada ✓');
+}
+
+function renderBuzon() {
+  const el = document.getElementById('bz-list');
+  if(!store.buzon.length){ el.innerHTML=''; return; }
+  el.innerHTML = store.buzon.map((m,i)=>`
+    <div class="bz-item">
+      <div class="bz-hd">
+        <span>${m.text}</span>
+        ${level===3?`<button class="bz-del" onclick="delMsg(${i})" title="Eliminar">✕</button>`:''}
+      </div>
+      <div class="bz-date">${m.date}</div>
+    </div>`).join('');
+}
+
+function delMsg(i){ if(level<3) return; store.buzon.splice(i,1); renderBuzon(); }
+
+// ══════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════
+let toastT;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),2400);
+}
+</script>
+</body>
+</html>
